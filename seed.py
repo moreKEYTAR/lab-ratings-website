@@ -60,7 +60,6 @@ def load_movies():
     db.session.commit()
 
 
-
 def load_ratings():
     """Load ratings from u.data into database."""
 
@@ -79,7 +78,6 @@ def load_ratings():
         db.session.add(rating)
 
     db.session.commit()
-
 
 
 def set_val_user_id():
