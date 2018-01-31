@@ -52,16 +52,17 @@ def registration_process():
     is_valid = User.query.filter(User.email == reg_email).first()
     # queries user table for any record with that email; returns None if no record
 
-    if not is_valid:
+    if is_valid is None:
         # already there, so they can't register, so try another email or recover password
         # some type of flash message
-        print "idiot"
-    else:
         user = User(email=reg_email, password=reg_password)
         db.session.add(user)
         db.session.commit()
 
         return redirect('/')
+    else:
+        print "idiot"
+        return render_template("registration.html")
 
 
 
