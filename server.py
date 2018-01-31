@@ -37,33 +37,44 @@ def user_list():
 
 @app.route('/register', methods=["GET"])
 def registration_form():
-    """Allow user to make an account login."""
+    """Allow user to register an account"""
 
     return render_template("registration.html")
 
 
 @app.route('/register', methods=["POST"])
 def registration_process():
-    """Allow user to make an account login."""
+    """Queries database and registers user if email unique"""
 
     reg_email = request.form.get('email')
     reg_password = request.form.get('password')
 
-    is_valid = User.query.filter(User.email == reg_email).first()
+    in_db = User.query.filter(User.email == reg_email).first()
     # queries user table for any record with that email; returns None if no record
 
-    if is_valid is None:
-        # already there, so they can't register, so try another email or recover password
-        # some type of flash message
+    if in_db is None:
+
         user = User(email=reg_email, password=reg_password)
         db.session.add(user)
         db.session.commit()
-
         return redirect('/')
+
     else:
-        print "idiot"
+        flash("This email is already registered. ):<")
+
         return render_template("registration.html")
 
+
+@app.route('/login', methods=['GET'])
+def login_form():
+    """Allow user to log-in"""
+
+    return render_template('login.html')
+
+
+@app.route('/login', methods=['POST'])
+def login_process():
+    """"""
 
 
 
