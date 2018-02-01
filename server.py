@@ -3,7 +3,7 @@
 from jinja2 import StrictUndefined
 
 from flask import (Flask, render_template, redirect, request, flash,
-                   session)
+                   session, jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, Rating, Movie, connect_to_db, db
@@ -23,7 +23,8 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def index():
     """Homepage."""
-
+    if session["logged-in"]:
+        flash("Welcome back, FRIEND")
     return render_template("homepage.html")
 
 
@@ -74,7 +75,24 @@ def login_form():
 
 @app.route('/login', methods=['POST'])
 def login_process():
-    """"""
+    """Verifying login data with database"""
+
+    login_email = request.form.get("email")
+    login_password = request.form.get("password")
+
+    valid_email = db.session.query(User).filter_by(email=login_email).first()
+
+    if valid_email is None:
+        flash("That login is not valid. You should join us, or figure out the right credentials.")
+        return redirect("/login")
+
+    else:
+        if valid_email.password == login_password:
+            session["logged-in"] = True
+            return redirect("/")
+        else:
+            flash("That login is not valid. You should join us, or figure out the right credentials.")
+            return redirect("/login")
 
 
 

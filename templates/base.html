@@ -1,11 +1,6 @@
 <!doctype html>
 <html>
 <head>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js">
-        $(document).on('ready', function () {};);
-    </script>
-    <script type="text/javascript" href="/static/script.js"></script>
-
     <title>PLACEHOLDER</title>
 </head>
 <body>
@@ -15,9 +10,12 @@
         {{ message }}<br>
     {% endfor %}
     <br>
+
     {% block content %}
         PUT YOUR CONTENT HERE
     {% endblock %}
 
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!--<script type="text/javascript" src="/static/script.js"></script>-->
 </body>
 </html>

@@ -6,14 +6,22 @@
 <h2>Log in you judgemental bastard:</h2>
 
 <div>
-    <form action='POST'>
+    <form action='/login' method='POST' id='login-form'>
         <label for='login-email-input'>
-            Email:<input type='text' name='email' placeholder='email address' required>
+            Email:<input type='text' name='email' id='login-email' placeholder='email address' required>
         </label><br>
         <label for='login-password-input'>
-            Password:<input type='password' name='password' placeholder='password' required>
+            Password:<input type='password' name='password' id='login-password'placeholder='password' required>
         </label><br>
+        <label for='submit-button'>
+        <input type='submit' value='WELCOME HOME' id='login-button'>
+    </label>
     </form>
 </div>
+<div>
+    Register here <br>
+    <button type="button" id="register-button" onclick="location.href='/register';"value="NEWBIES JOIN US">NEWBIES JOIN US</button>
+</div>
+
 
 {% endblock %}
