@@ -8,7 +8,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, Rating, Movie, connect_to_db, db
 
-
+# Hiding this javascript reference: <script type="text/javascript" src="/static/script.js"></script>
 app = Flask(__name__)
 
 # Required to use Flask sessions and the debug toolbar
@@ -24,7 +24,9 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """Homepage."""
     if session["logged-in"]:
-        flash("Welcome back, FRIEND")
+        if session["logged-in"] == True:
+            flash("Welcome back, FRIEND")
+
     return render_template("homepage.html")
 
 
@@ -93,6 +95,14 @@ def login_process():
         else:
             flash("That login is not valid. You should join us, or figure out the right credentials.")
             return redirect("/login")
+
+
+@app.route('/logout', methods=['POST'])
+def logout_form():
+    """Allow user to log-out"""
+
+    session["logged-in"] = False
+    return redirect('/')
 
 
 
