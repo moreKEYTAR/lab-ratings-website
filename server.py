@@ -29,6 +29,15 @@ def index():
 
     return render_template("homepage.html")
 
+@app.route('/check-login')
+def get_login_status():
+    """Checks for session information to show logout button"""
+    if session.get("logged-in") is True:
+        response = {"logged-in": "True"}
+    else:
+        response = {"logged-in": "False"}
+    return jsonify(response)
+
 
 @app.route('/users')
 def user_list():

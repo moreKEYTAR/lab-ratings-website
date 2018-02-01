@@ -17,5 +17,27 @@
 <p><a href="/register">Make a login and start rating movies!</a></p>
 
 
+<div>
+    <form action='/logout' method='POST' id='logout-form'>
+        <input type='hidden' value='Log Out' id='logout-button'>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+
+function toggleButton(response) {
+    if (response["logged-in"] === "True") {
+        $('#logout-button').attr('type', 'submit');
+    } else {
+        $('#logout-button').attr('type', 'hidden');
+    }
+}
+
+$.get('/check-login', toggleButton);
+
+</script>
+
+
 
 {% endblock %}
